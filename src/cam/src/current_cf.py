@@ -5,10 +5,11 @@ from tf2_msgs.msg import TFMessage
 
 HELMET_TAG = 'ar_marker_0'
 
+lkp = {}
 
 def callback(msg, ar_tag):
 	for trans in msg.transforms:
-		print(trans)
+		lkp[trans.child_frame_id] = trans.transform
 
 def main():
 	rospy.init_node('current_cf')
