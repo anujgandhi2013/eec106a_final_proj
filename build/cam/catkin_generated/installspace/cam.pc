@@ -1,0 +1,8 @@
+prefix=/home/ravi/ros_ws/camera/install
+
+Name: cam
+Description: Description of cam
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/ravi/ros_ws/camera/install/lib 
+Requires: 
