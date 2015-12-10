@@ -30,7 +30,7 @@ def main():
         r.sleep()
 
 def delt():
-    return (random()-0.5)*.1
+    return 0 #(random()-0.5)*.1
 
 if __name__ == '__main__':
     main()
