@@ -1,8 +1,10 @@
 from __future__ import division
 import numpy as np
 import numpy.linalg as la
-from math import sin, cos, sqrt
-from geometry_msgs.msg import Transform, Vector3, Quaternion
+from math import sin, cos, sqrt, atan2
+from geometry_msgs.msg import Pose, Point, Quaternion
+
+VICON_TO_CRAZY = np.array([[1, 0, 0, 0], [0, -1, 0, 0], [0, 0, -1, 0], [0, 0, 0, 1]])
 
 def skew_3d(omega):
     """
@@ -79,6 +81,9 @@ def rot_to_quaternion(rot):
     z = (rot[0][1] + rot[1][0]) / (4*w)
     return x, y, z, w
 
+def get_yaw_from_rot(rot):
+    return atan2(rot[1][0], rot[0][0])
+
 
 def create_rbt(omega, theta, p):
     """
@@ -101,13 +106,19 @@ def create_rbt(omega, theta, p):
 def tf_to_rbt(tf):
     quat = np.array([tf.rotation.x, tf.rotation.y, tf.rotation.z, tf.rotation.w])
     omega, theta = quaternion_to_exp(quat)
+    if la.norm(omega) == 0:
+        omega, theta = np.array([1, 0, 0]), 0
+
     trans = np.array([tf.translation.x, tf.translation.y, tf.translation.z])
 
     return create_rbt(omega, theta, trans)
 
-def rbt_to_tf(rbt):
-    quat = rot_to_quaternion(rbt[:3,range(3)])
+def rbt_to_pose(rbt):
+    yaw = get_yaw_from_rot(rbt[:3,range(3)])
     trans = rbt[:3,3]
-    quaternion = Quaternion(*quat)
-    translation = Vector3(trans[0], trans[1], trans[2])
-    return Transform(translation, quaternion)
+    p = Point(trans[0], trans[1], trans[2])
+    o = Quaternion(0, 0, yaw, 0)
+    return Pose(p, o)
+
+def get_yaw_from_quat(quat):
+    return atan2(2*(quat.x*quat.w + quat.y*quat.z), (1 - 2*(quat.y**2 + quat.z**2)))

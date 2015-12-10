@@ -8,16 +8,16 @@ from random import random
 
 def main():
     rospy.init_node('helmet')
-    pub = rospy.Publisher('helmet', TransformStamped, 10)
+    pub = rospy.Publisher('helmet', TransformStamped, queue_size=10)
 
     tx, ty, tz = 1, 1, 1
     w0, w1, w2 = 0, 0, 1
     theta = pi/2
-    r = rospy.Rate(1000)
+    r = rospy.Rate(100)
     while True:
-        # tx, ty, tz = tx+delt(), ty+delt(), tz+delt()
-        # w0, w1, w2, = w0+delt(), w1+delt(), w2+delt()
-        # theta = (theta+delt()) % (2*pi)
+        tx, ty, tz = tx+delt(), ty+delt(), tz+delt()
+        w0, w1, w2, = w0+delt(), w1+delt(), w2+delt()
+        theta = (theta+delt()) % (2*pi)
         
         quat = ks.rot_to_quaternion(ks.rotation_3d(np.array([w0, w1, w2]), theta))
         translation = Vector3(tx, ty, tz)
