@@ -15,6 +15,7 @@ def helm_callback(ts):
     origin_to_desired_crazy = np.dot(VICON_TO_CRAZY, origin_to_desired)
 
     desired_loc = rbt_to_pose(origin_to_desired_crazy)
+    print 'publishing'
     pub.publish(desired_loc)
 
 def main():

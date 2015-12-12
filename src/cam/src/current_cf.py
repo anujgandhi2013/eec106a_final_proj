@@ -6,7 +6,7 @@ from tf2_msgs.msg import TFMessage
 from geometry_msgs.msg import TransformStamped, Pose, Point
 
 HELMET_TAG = 'ar_marker_0'
-HELM_TO_HELMAR = np.array([[0.03, 0.19, -0.98, -0.1], [-1, 0.05, -0.02, -0.01], [0.05, 0.98, 0.19, -0.09], [0, 0, 0, 1]])
+HELM_TO_HELMAR = np.array([[-0.173, 0.165, -0.971, -0.103], [-0.984, 0.005, 0.176, 0.008], [0.034, 0.986, 0.161, -0.082], [0., 0., 0., 1.]])
 
 lkp = None
 pub = None

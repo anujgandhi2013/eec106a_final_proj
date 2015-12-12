@@ -23,9 +23,9 @@
   <node name="ar_track_alvar" pkg="ar_track_alvar" type="findMarkerBundlesNoKinect" respawn="false" output="screen" args="$(arg marker_size) $(arg max_new_marker_error) $(arg max_track_error) $(arg cam_image_topic) $(arg cam_info_topic) $(arg output_frame) $(arg bundle_file)" />
 
 
-  <!-- <group ns="vicon/helmet">
+  <group ns="vicon/helmet">
     <node name="helmet" pkg="cam" type="helmetpos_test.py" respawn="false"/>
-  </group> -->
+  </group>
 
   <node name="desired_position" pkg="cam" type="desired_position.py" respawn="false"/>
   <node name="current_cf_raw" pkg="cam" type="current_cf.py" respawn="false"/>
